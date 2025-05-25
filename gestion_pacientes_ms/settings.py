@@ -126,3 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PORT = os.environ.get("PORT", 8080)
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://gestion-pacientes-594687202111.us-central1.run.app",
+]
