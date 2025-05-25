@@ -12,4 +12,4 @@ COPY . /app/
 
 EXPOSE 8080
 
-CMD ["gunicorn", "diagnostico_ia_ms.wsgi:application", "--bind", "0.0.0.0:8080"]
+CMD ["gunicorn", "gestion_pacientes_ms.wsgi:application", "--bind", "0.0.0.0:8080"]
