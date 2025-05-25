@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'pacientes',
     'historias_clinicas',
+    'foro',
 ]
 
 MIDDLEWARE = [
