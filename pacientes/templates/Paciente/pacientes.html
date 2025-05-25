@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Lista de Pacientes</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Historia Clínica</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in paciente_list %}
+            <tr>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.historia_clinica }}</td>
+                <td>
+                    <a href="{% url 'paciente_historial' paciente.id %}" class="btn btn-primary">
+                        Ver Historial
+                    </a>
+                     <a href="{% url 'foro_paciente' paciente.id %}" class="btn btn-primary">
+                        Foro
+                    </a>
+                    <form method="POST" action="{% url 'paciente_delete' paciente.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay pacientes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
