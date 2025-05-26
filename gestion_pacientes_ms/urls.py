@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('pacientes/', include('pacientes.urls')),
-    
+    path('historias/', include('historias_clinicas.urls')),
+    path('pacientes/foro/paciente/', include('foro.urls')),
 ]
