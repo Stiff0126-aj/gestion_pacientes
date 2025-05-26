@@ -18,9 +18,6 @@ urlpatterns = [
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    path('historias/', include('historias_clinicas.urls')),
-]
-
-urlpatterns += [
-    path('foro/', include('foro.urls')),
+   path('historias/', include('historias_clinicas.urls')),
+    path('foro/', include('foro.urls'))
 ]
