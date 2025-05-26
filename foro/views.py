@@ -12,8 +12,8 @@ def foro_paciente(request, paciente_id):
         comentario_form = ComentarioForm(request.POST)
         if comentario_form.is_valid():
             comentario = comentario_form.save(commit=False)
-            comentario.medico = request.session.get('usuario')
-            
+            # Tomar el nombre del médico desde el formulario
+            comentario.medico = request.POST.get('medico', '').strip() or 'Anónimo'
             foro_id = request.POST.get('foro_id')
             comentario.foro = get_object_or_404(Foro, id=foro_id)
             comentario.save()

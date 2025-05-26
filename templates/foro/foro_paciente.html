@@ -23,7 +23,10 @@
 
       <form method="POST" style="margin-top: 10px;">
         {% csrf_token %}
-        {{ comentario_form.as_p }}
+        {{ comentario_form.medico.label_tag }}
+        {{ comentario_form.medico }}
+        {{ comentario_form.texto.label_tag }}
+        {{ comentario_form.texto }}
         <input type="hidden" name="foro_id" value="{{ foro.id }}">
         <button type="submit" name="comentario">Agregar comentario</button>
       </form>
