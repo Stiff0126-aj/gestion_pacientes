@@ -98,3 +98,7 @@ def rol_requerido(rol):
         return wrapper
     return decorador
 
+def logout_view(request):
+    response = redirect('login')
+    response.delete_cookie('jwt')  # 🔥 elimina el token
+    return response
