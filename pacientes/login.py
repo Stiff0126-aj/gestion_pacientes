@@ -80,7 +80,7 @@ def login_view(request):
     return render(request, 'Paciente/login.html')
 
 
-def rol_requerido_jwt(rol):
+def rol_requerido(rol):
     def decorador(func):
         @wraps(func)
         def wrapper(request, *args, **kwargs):
