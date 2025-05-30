@@ -60,12 +60,15 @@ def login_view(request):
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
             response = redirect('home')
-            response.set_cookie('jwt', token, httponly=True)  # Guarda el token en una cookie segura
+            response.set_cookie('jwt', token, httponly=True)
+            print("✅ Login exitoso. Token emitido.")
             return response
-        else:
-            return render(request, 'Paciente/login.html', JsonResponse({'error': 'Credenciales inválidas'}, status=401) )
+
+        print("❌ Credenciales inválidas.")
+        return render(request, 'Paciente/login.html', {'error': 'Credenciales inválidas'})
 
     return render(request, 'Paciente/login.html')
+
 
 def rol_requerido(rol):
     def decorador(func):
