@@ -4,10 +4,12 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from foro import views as foro_views
+from . import login
 from historias_clinicas import views as historias_views
 urlpatterns = [
     
     path('', home, name='home'), 
+    path('login/', login.login_view, name='login'),
     path('pacientes/', paciente_list, name='paciente_list'),
     path('crear/', views.paciente_create, name='paciente_create'),
     path('paciente/historial/<int:paciente_id>/', views.paciente_historial, name='paciente_historial'),

@@ -4,9 +4,10 @@ from historias_clinicas.models import HistoriaClinica
 import time
 from .forms import PacienteForm
 from django.http import HttpResponse
+from .login import autenticacion_jwt, rol_requerido
 
 
-
+@autenticacion_jwt
 def home(request):
     return render(request, 'Paciente/home.html')
 

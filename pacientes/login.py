@@ -15,6 +15,29 @@ def autenticacion(func):
         return func(request, *args, **kwargs)
     return wrapper
 
+
+def autenticacion_jwt(func):
+    @wraps(func)
+    def wrapper(request, *args, **kwargs):
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return redirect('login')  # solo si estás manejando flujo tradicional desde navegador
+
+        token = auth_header.split(' ')[1]
+
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            request.user_id = payload.get('user_id')
+        except jwt.ExpiredSignatureError:
+            return redirect('login')
+        except jwt.InvalidTokenError:
+            return redirect('login')
+
+        return func(request, *args, **kwargs)
+    return wrapper
+
+
+
 USUARIOS_SIMULADOS = { 'Doctor': {'clave':'123456', 'rol': 'Doctor'},'Doctor Alfredo': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Juan': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Messi': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Cristiano': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Lamine Yamal': {'clave':'123456', 'rol': 'Doctor'},'a': {'clave':'987654', 'rol': 'Paciente'}, 'Tecnico': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 2': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 3 ': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 4': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 5 ': {'clave':'1234', 'rol': 'Tecnico'}} 
 
 
