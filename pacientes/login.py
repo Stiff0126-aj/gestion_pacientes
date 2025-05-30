@@ -62,8 +62,8 @@ def login_view(request):
             response = redirect('home')
             response.set_cookie('jwt', token, httponly=True)  # Guarda el token en una cookie segura
             return response
-
-        return render(request, 'Paciente/login.html', JsonResponse({'error': 'Credenciales inválidas'}, status=401) )
+        else:
+            return render(request, 'Paciente/login.html', JsonResponse({'error': 'Credenciales inválidas'}, status=401) )
 
     return render(request, 'Paciente/login.html')
 
