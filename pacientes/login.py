@@ -59,7 +59,9 @@ def login_view(request):
             }
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-            return redirect('home') ##JsonResponse({'token': token})
+            response = redirect('home')
+            response.set_cookie('jwt', token, httponly=True)  # Guarda el token en una cookie segura
+            return response
 
         return render(request, 'Paciente/login.html', JsonResponse({'error': 'Credenciales inválidas'}, status=401) )
 
