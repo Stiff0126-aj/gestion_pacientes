@@ -61,7 +61,7 @@ def login_view(request):
 
             return redirect('home') ##JsonResponse({'token': token})
 
-        return JsonResponse({'error': 'Credenciales inválidas'}, status=401)
+        return render(request, 'Paciente/login.html', JsonResponse({'error': 'Credenciales inválidas'}, status=401) )
 
     return render(request, 'Paciente/login.html')
 
