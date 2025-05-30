@@ -59,7 +59,7 @@ def login_view(request):
             }
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-            return JsonResponse({'token': token})
+            return redirect('home') ##JsonResponse({'token': token})
 
         return JsonResponse({'error': 'Credenciales inválidas'}, status=401)
 
