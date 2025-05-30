@@ -36,7 +36,7 @@ def autenticacion_jwt(func):
 
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-            request.user_id = payload.get('usuario')  # o 'user_id', según cómo lo pusiste
+            request.user_id = payload.get('usuario') 
         except jwt.ExpiredSignatureError:
             print("❌ Token expirado")
             return redirect('login')
@@ -64,7 +64,8 @@ def login_view(request):
                 'usuario': usuario,
                 'rol': USUARIOS_SIMULADOS[usuario]['rol'],
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1),
-                'iat': datetime.datetime.utcnow()
+                'iat': datetime.datetime.utcnow(),
+                'iss': 'https://login' 
             }
             token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
