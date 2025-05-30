@@ -80,13 +80,21 @@ def login_view(request):
     return render(request, 'Paciente/login.html')
 
 
-def rol_requerido(rol):
+def rol_requerido_jwt(rol):
     def decorador(func):
         @wraps(func)
         def wrapper(request, *args, **kwargs):
-            if request.session.get('rol')==rol:
-                return func(request, *args, **kwargs)
-            messages.error(request, "No tienes la autorizacion para acceder a esta pagina.")
+            token = request.COOKIES.get('jwt')
+            if not token:
+                return redirect('login')
+            try:
+                payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+                if payload.get('rol') == rol:
+                    return func(request, *args, **kwargs)
+            except:
+                pass
+            messages.error(request, "No tienes la autorización para acceder a esta página.")
             return redirect('home')
         return wrapper
     return decorador
+
