@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from pacientes.models import Paciente
 from .models import Foro
 from .forms import ForoForm, ComentarioForm
-
+from pacientes.login import autenticacion_jwt, rol_requerido
+@autenticacion_jwt
 def foro_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
     foros = Foro.objects.filter(paciente=paciente).order_by('-fecha_creacion')
@@ -27,7 +28,7 @@ def foro_paciente(request, paciente_id):
         'comentario_form': comentario_form,
     })
 
-
+@autenticacion_jwt
 def crear_foro(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
 
