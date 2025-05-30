@@ -35,7 +35,7 @@ def autenticacion_jwt(func):
             return redirect('login')
 
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             request.user_id = payload.get('usuario')  # o 'user_id', según cómo lo pusiste
         except jwt.ExpiredSignatureError:
             print("❌ Token expirado")
