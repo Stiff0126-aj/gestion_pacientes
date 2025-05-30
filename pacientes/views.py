@@ -11,7 +11,7 @@ from .login import autenticacion_jwt, rol_requerido
 def home(request):
     return render(request, 'Paciente/home.html')
 
-@autenticacion_jwt
+
 def paciente_historial(request, paciente_id):
     start_time = time.time()
     
@@ -28,8 +28,7 @@ def paciente_historial(request, paciente_id):
     }
     return render(request, 'Paciente/paciente_historial.html', context)
 
-@autenticacion_jwt
-@rol_requerido('Doctor')
+
 def paciente_create(request):
     if request.method == 'POST':
         form = PacienteForm(request.POST)
@@ -42,7 +41,7 @@ def paciente_create(request):
     context = {'form': form}
     return render(request, 'Paciente/paciente_create.html', context)
 
-@autenticacion_jwt
+
 def paciente_list(request):
     pacientes = Paciente.objects.all()
     context = {'paciente_list': pacientes}

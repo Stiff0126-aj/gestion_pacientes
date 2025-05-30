@@ -4,14 +4,14 @@ from .forms import HistoriaUsuarioForm
 from pacientes.models import Paciente
 from pacientes.login import autenticacion_jwt, rol_requerido
 
-@autenticacion_jwt
+
 def historia_list(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
     historias = HistoriaClinica.objects.filter(paciente=paciente)
     context = {'historial_list': historias, 'paciente': paciente}
     return render(request, 'HistoriasUsuario/historias.html', context)
 
-@autenticacion_jwt
+
 def crear_historia(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
 
