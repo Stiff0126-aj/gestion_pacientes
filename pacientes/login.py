@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from .models import Paciente
 from django.contrib import messages
 
+SECRET_KEY = 'supersecreto'  # Guarda esto en settings
 def autenticacion(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
@@ -51,9 +52,6 @@ def autenticacion_jwt(func):
 
 USUARIOS_SIMULADOS = { 'Doctor': {'clave':'123456', 'rol': 'Doctor'},'Doctor Alfredo': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Juan': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Messi': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Cristiano': {'clave':'123456', 'rol': 'Doctor'}, 'Doctor Lamine Yamal': {'clave':'123456', 'rol': 'Doctor'},'a': {'clave':'987654', 'rol': 'Paciente'}, 'Tecnico': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 2': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 3 ': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 4': {'clave':'1234', 'rol': 'Tecnico'}, 'Tecnico 5 ': {'clave':'1234', 'rol': 'Tecnico'}} 
 
-
-
-SECRET_KEY = 'supersecreto'  # Guarda esto en settings
 
 
 def login_view(request):
