@@ -19,21 +19,27 @@ def autenticacion(func):
 def autenticacion_jwt(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
+        # Intenta obtener el token desde el encabezado Authorization
         auth_header = request.headers.get('Authorization')
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return redirect('login')  # solo si estás manejando flujo tradicional desde navegador
 
-        token = auth_header.split(' ')[1]
+        if not auth_header or not auth_header.startswith('Bearer '):
+            # Alternativamente, intenta obtener el token desde la cookie (opcional si usas cookies)
+            token = request.COOKIES.get('jwt')
+            if not token:
+                return redirect('login')
+        else:
+            token = auth_header.split(' ')[1]
 
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-            request.user_id = payload.get('user_id')
+            request.jwt_payload = payload  # puedes acceder luego con request.jwt_payload
         except jwt.ExpiredSignatureError:
             return redirect('login')
         except jwt.InvalidTokenError:
             return redirect('login')
 
         return func(request, *args, **kwargs)
+
     return wrapper
 
 
